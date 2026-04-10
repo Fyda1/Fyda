@@ -5,7 +5,7 @@ from flask import Flask, render_template_string, request, redirect
 
 app = Flask(__name__)
 
-# --- ያንተን የቻፓ ኮድ እዚህ አስገባ ---
+# --- ያንተን የቻፓ Secret Key እዚህ አስገባ ---
 CHAPA_SECRET_KEY = 'CHASECK_TEST-RXB1XrByfzYA98xJLFBDcisRQQaviTxN' 
 
 HTML_PAGE = """
@@ -14,23 +14,24 @@ HTML_PAGE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fayda Card Maker</title>
+    <title>Fayda ID Converter</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #f4f7f6; padding: 40px; }
-        .card { background: white; padding: 30px; border-radius: 15px; max-width: 400px; margin: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .btn { background: #1e40af; color: white; padding: 12px; border: none; width: 100%; border-radius: 5px; cursor: pointer; font-size: 18px; margin-top: 20px; }
-        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
-        .price { color: #059669; font-size: 24px; font-weight: bold; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }
+        .card { background: white; color: #333; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); max-width: 400px; width: 90%; }
+        h1 { color: #1e40af; margin-bottom: 10px; }
+        .price { font-size: 35px; color: #059669; font-weight: bold; margin: 20px 0; }
+        .btn { background: #1e40af; color: white; padding: 15px; border: none; border-radius: 10px; font-size: 18px; width: 100%; cursor: pointer; text-decoration: none; display: block; }
+        input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h2>የፋይዳ መታወቂያ መቀየሪያ</h2>
-        <p>ፒዲኤፍ ፋይልዎን ወደ ካርድ ይቀይሩ</p>
-        <p class="price">ዋጋ፦ 40 ብር</p>
+        <h1>Fayda ID</h1>
+        <p>ፒዲኤፍዎን ወደ ካርድ ለመቀየር 40 ብር ይክፈሉ</p>
+        <div class="price">40 ETB</div>
         <form action="/pay" method="POST">
             <input type="email" name="email" placeholder="ኢሜይልዎን ያስገቡ" required>
-            <button type="submit" class="btn">ክፍያ ፈጽም</button>
+            <button type="submit" class="btn">ክፍያ ይፈጽሙ</button>
         </form>
     </div>
 </body>
@@ -58,12 +59,10 @@ def pay():
         data = response.json()
         if data.get('status') == 'success':
             return redirect(data['data']['checkout_url'])
-        return f"ስህተት፦ {data.get('message')}"
-    except Exception as e:
-        return f"ችግር ተፈጥሯል፦ {str(e)}"
-
+        return f"ስህተት ተፈጥሯል: {data.get('message')}"
+    except:
+        return "ግንኙነት ተቋርጧል። እባክዎ ድጋሚ ይሞክሩ።"
 
 if __name__ == "__main__":
-    # Render የሚሰጠውን PORT ይጠቀማል፣ ካልተገኘ ግን 10000 ይጠቀማል
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
