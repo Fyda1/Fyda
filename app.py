@@ -1,4 +1,4 @@
-```python
+python
 import os
 import requests
 from flask import Flask, render_template_string, request, redirect
@@ -6,7 +6,7 @@ from flask import Flask, render_template_string, request, redirect
 app = Flask(__name__)
 
 # --- ያንተን የቻፓ Secret Key እዚህ አስገባ ---
-CHAPA_SECRET_KEY = 'CHASECK_TEST-RXB1XrByfzYA98xJLFBDcisRQQaviTxN' 
+CHAPA_SECRET_KEY = 'RXB1XrByfzYA98xJLFBDcisRQQaviTxN' 
 
 HTML_PAGE = """
 <!DOCTYPE html>
@@ -66,4 +66,3 @@ def pay():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
-```
