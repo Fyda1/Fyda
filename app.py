@@ -1,11 +1,10 @@
-python
 import os
 import requests
 from flask import Flask, render_template_string, request, redirect
 
 app = Flask(__name__)
 
-# --- ያንተን የቻፓ Secret Key እዚህ አስገባ ---
+# --- CHASECK_TEST-RXB1XrByfzYA98xJLFBDcisRQQaviTxN' ---
 CHAPA_SECRET_KEY = 'CHASECK_TEST-RXB1XrByfzYA98xJLFBDcisRQQaviTxN' 
 
 HTML_PAGE = """
@@ -61,8 +60,8 @@ def pay():
             return redirect(data['data']['checkout_url'])
         return f"ስህተት ተፈጥሯል: {data.get('message')}"
     except:
-        return "ግንኙነት ተቋርጧል። እባክዎ ድጋሚ ይሞክሩ።"
-
+        return f"ችግር ተፈጥሯል:-{str(e)}"
+    
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
