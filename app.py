@@ -5,7 +5,7 @@ from flask import Flask, render_template_string, request, redirect
 
 app = Flask(__name__)
 
-# --- ያንተን የቻፓ Secret Key እዚህ አስገባ ---
+# --- RXB1XrByfzYA98xJLFBDcisRQQaviTxN ---
 CHAPA_SECRET_KEY = 'RXB1XrByfzYA98xJLFBDcisRQQaviTxN' 
 
 HTML_PAGE = """
